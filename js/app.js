@@ -32,119 +32,92 @@
 // 4. Upload on Heroku and Github
 // 5. HTML && CSS 
 
-// window.onload = init;
-
-// var gameBoard,
-//     buttons
-//     message
-//     turnsPlayer
-//     finished 
-// var pits[0,0,0,0,0,0];
-// var storeBot
-// var storePlayer
-
-//                 ]
-// // to determine the player's turns  
-// //  function playSquare(){
-// //  if (this.innerHTML !== "" || finished) return;
-// //  var player = (turns % 2 === 0) ? "t" : "h";
-// //  updateSquare(this, player);
-// //  var moves  = (player === "t") ? xMoves : oMoves;
-// //  storeMove(moves, this);
-// //  turns++;
-// //  checkResult(moves, player);
-// //}
-// for (var i = 0, pits = document.getElementById(""); i < pits.length; i++) {
-//   pits[i].addEventListener("click", function() {
-    
-//   });
-// }
-// document.addEventListener( "DOMContentLoaded", ready, false )
+function randomHex(){
+  return '#'+Math.floor(Math.random()*16777215).toString(16);
+}
 
 $(function(){
-
-
-  var audio = new Audio("./audio/emp_lordvaderrise.mp3");
-  console.log(audio);
-  audio.play();
-
-  // var buttonAudio = new Audio("http:/audio/Muchfear.mp3") ;
-
-  // buttonAudio.oncanplaythrough = function(){
-  // buttonAudio.play();
-  // }
-
-  // buttonAudio.loop = true;
-
-  // buttonAudio.onended = function(){
-  // audio.play();
-  // }
-
   var $lis          = $("li");
   var lisArray      = [].slice.call($lis);
   var $pits         = $(".pit");
   var $player1Store = $(".player1");
   var $player2Store = $(".player2");
+  var $start        = $("#start");
 
-  $player1Store.html(0);
-  $player2Store.html(0);
-  $pits.html(4);
+  $player1Store.html();
+  $player2Store.html();
+
+  $.each($pits, function(i, pit) {
+    for (var i = 0; i < 4; i++) {
+      var $pebble = $("<div class='pebble'></div>");
+      $pebble
+        .css("background", randomHex())
+        .css("top", Math.floor(Math.random() * 80) + 20)
+        .css("left", Math.floor(Math.random() * 60) + 20)
+        .appendTo(pit);
+    }
+  });
+  
 
   $('#start').on('click', function() {
-
     $.each($lis, function(index, element) {
       $(element).css("background", "green");
     });
   });
 
+  var audio = new Audio("audio/emp_lordvaderrise.mp3");
+  audio.play();
+
+  $start.on("click", function(){
+    var buttonAudio = new Audio("audio/Muchfear.mp3") ;
+    buttonAudio.play();
+  })
+
   $pits.on("click", function(){
+    var chosen    = lisArray.indexOf(this);
+    var divs     = $(this).find(".pebble");
+    console.log(divs);
+    var direction; 
 
+    $(this).html("");
 
-    console.log($(this).html())
+    if (chosen < 14 && chosen > 7) {
+      for (var i = 0; i < divs.length; i++) {
+        var nextIndex = chosen+i+1;
+        if (nextIndex > 13) {
+          nextIndex = 8 - (nextIndex - 13);
+          console.log(nextIndex);
+        }
+        var $nextLi   = $($lis[nextIndex]);
+        // $nextLi.html(parseInt($nextLi.html()) + 1);
+        $(divs[i]).detach().appendTo($nextLi);
 
-    if (index ===13 && this.turn === this.player1) {
-    index0; 
-  }
-    else if (index === 6 && this.turn === this.player2) { 
-    index ++;
-  }
+        if (nextIndex === 7 || nextIndex === 0) {
+          $nextLi.addClass("animated bounce");
+          // $nextLi.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+          //   $nextLi.removeClass("animated bounce");
+          // });
+        }
+      }
+    } else {
+      for (var i = 0; i < divs.length; i++) {
+        var nextIndex = chosen-i-1;
 
-    // var next = $(this).nextUntil($(this).html() - 1)
-    // console.log(next);
+        if (nextIndex < 0) {
+          nextIndex = 7 + Math.abs(nextIndex);
+          console.log(nextIndex);
+        }
+        var $nextLi   = $($lis[nextIndex]);
+        // $nextLi.html(parseInt($nextLi.html()) + 1);
+        $(divs[i]).detach().appendTo($nextLi);
 
-    // console.log(next, next2, next3, next4);
-
-    // var array = [next, next2, next3, next4];
-
-    // for (var i = 0; i < array.length; i++) {
-    //   var $element = $(array[i][0])
-    //   console.log($element);
-    //   $element.text(parseInt($element.text()) + 1);
-    // }
-
-
-
-
-    // for (var i = 0; i < 4; i++) {
-    //   console.log($(this).next());
-    // }
-
-    // var number = parseInt($(this).text());
-    // $(this).text("0");
-
-    // var next = $(this).next()
-    // $next.text()
-
-        // var count = parseInt($(this).html());
-    // $(this).html(0);
-    // var index = lisArray.indexOf(this);
-
-    // for (var i = 0; i < count; i++) {
-    //   var nextLiIndex;
-    //   if (index <= 7) nextLiIndex = index - i - 1;
-    //   if (index >= 7) nextLiIndex = index + i + 1;
-
-    //   $($lis[nextLiIndex]).html(parseInt($($lis[nextLiIndex]).html()) + 1);
-    // }
+        if (nextIndex === 7 || nextIndex === 0) {
+          $nextLi.addClass("animated bounce");
+          // $nextLi.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+          //   $nextLi.removeClass("animated bounce");
+          // });
+        }
+      }
+    }
   });
 });
