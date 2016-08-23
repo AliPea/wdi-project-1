@@ -40,12 +40,22 @@ $(function(){
   var $lis          = $("li");
   var lisArray      = [].slice.call($lis);
   var $pits         = $(".pit");
+  var audio         = new Audio("audio/mainTheme.mp3");
   var $player1Store = $(".player1");
   var $player2Store = $(".player2");
   var $start        = $("#start");
+  var $computerpits = $(".computer");
+  var $playerpits   = $('.player');
+  var counter       = 1;
 
   $player1Store.html();
   $player2Store.html();
+
+  // var myVar = setInterval(myTimer, 1000);
+  //     function myTimer() {
+  //     var d = new Date(dateString);
+  //     document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+  // }
 
   $.each($pits, function(i, pit) {
     for (var i = 0; i < 4; i++) {
@@ -61,39 +71,79 @@ $(function(){
 
   $('#start').on('click', function() {
     $.each($lis, function(index, element) {
-      $(element).css("background", "green");
+      $(element).css("background");
     });
   });
 
-  var audio = new Audio("audio/emp_lordvaderrise.mp3");
   audio.play();
 
+  //Add stop music button
+
+  //add prompt message Welcome to Space Cats Mancala!
+
+  //make the start button flash
+
   $start.on("click", function(){
-    var buttonAudio = new Audio("audio/Muchfear.mp3") ;
+    var buttonAudio   = new Audio("audio/laughfuzzball.mp3");
     buttonAudio.play();
   })
 
-  $pits.on("click", function(){
+  $('#music').on("click", function() {
+     if (audio.paused) {
+        audio.play();
+     }
+      else {
+        audio.pause();
+    }
+  });
+
+  $pits.on('click', function() {
+    counter++;
+
+    if(counter % 2 === 0) {
+      setTimeout(function() {
+        console.log("computer click")
+        var pit = $computerpits[Math.floor(Math.random()*$computerpits.length)]; 
+
+        $(pit).trigger('click');
+      }, 500);
+    }
+  })
+
+  $computerpits.on('click', function() {
     var chosen    = lisArray.indexOf(this);
     var divs     = $(this).find(".pebble");
-    console.log(divs);
+    var direction;
+
+    $(this).html("");
+
+    movePebbles(chosen, divs, direction)
+  })
+
+  $playerpits.on("click", function(){
+    var chosen    = lisArray.indexOf(this);
+    var divs     = $(this).find(".pebble");
     var direction; 
 
     $(this).html("");
 
+    movePebbles(chosen, divs, direction)
+  });
+
+  function movePebbles(chosen, divs, direction) {
     if (chosen < 14 && chosen > 7) {
       for (var i = 0; i < divs.length; i++) {
         var nextIndex = chosen+i+1;
         if (nextIndex > 13) {
           nextIndex = 8 - (nextIndex - 13);
-          console.log(nextIndex);
+          // console.log(nextIndex);
         }
         var $nextLi   = $($lis[nextIndex]);
         // $nextLi.html(parseInt($nextLi.html()) + 1);
+
         $(divs[i]).detach().appendTo($nextLi);
 
         if (nextIndex === 7 || nextIndex === 0) {
-          $nextLi.addClass("animated bounce");
           // $nextLi.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
           //   $nextLi.removeClass("animated bounce");
           // });
@@ -105,19 +155,30 @@ $(function(){
 
         if (nextIndex < 0) {
           nextIndex = 7 + Math.abs(nextIndex);
-          console.log(nextIndex);
+          // console.log(nextIndex);
         }
         var $nextLi   = $($lis[nextIndex]);
         // $nextLi.html(parseInt($nextLi.html()) + 1);
         $(divs[i]).detach().appendTo($nextLi);
 
         if (nextIndex === 7 || nextIndex === 0) {
-          $nextLi.addClass("animated bounce");
           // $nextLi.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
           //   $nextLi.removeClass("animated bounce");
           // });
         }
       }
     }
-  });
+
+    checkForWin();
+  }
+
+  function checkForWin() {
+    console.log("win");
+    // loop over pits
+    // check if ea
+    // if either computer pits or player pits is empty
+    // move all remaining pits to winner
+    // count amount of pebbles in each players zone and show who won
+  }
+
 });

@@ -11,7 +11,9 @@ body {
 body {
   margin: 0 auto;
   text-align: center;
+  background-image: url("blank-polaroid-frame.jpg");
 }
+body, a:hover {cursor: url(http://cur.cursors-4u.net/others/oth-1/oth24.cur), progress !important;}
 
 div.container {
   background-image: url("./images/Starwars.jpg");
@@ -28,21 +30,29 @@ div.container {
   border-radius: 25px;
 }
 
-h1 {
-  font-size: 2.9em;
+.container h1 {
+  font-size: 3em;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
   opacity: 0.8;
   filter: alpha(opacity=80)
   margin: 500px;
+  position: relative;
 }
 
-h2 {
-  font-size: 2.3em;
+.container h2 {
+  font-size: 2em;
+  color: #595959;
   font-family: 'Press Start 2P', cursive;
   text-align: center;
   opacity: 0.8;
   filter: alpha(opacity=80)
+}
+
+.container img {
+  width: 150px;
+  height: 100px;
+  display: inline;
 }
 
 ul {
@@ -53,9 +63,6 @@ ul {
 }
 
 li.player2 {
-/*  background-image: url("sand_crystals.jpg");
-  opacity: 0.5;
-  filter: alpha(opacity=50);*/
   height: 298px;
   width: 120px;
   float: left;
@@ -70,16 +77,12 @@ li.player2:hover {
 }
 
 li.player1 {
-/*  background-image: url("sand_crystals.jpg");
-  opacity: 0.7;
-  filter: alpha(opacity=70);*/
   height: 298px;
   width: 120px;
   float: right;
   opacity: 0.7;
   filter: alpha(opacity=70);
   }
-}
 
 li.player1:hover {
   opacity: 1;
@@ -88,7 +91,7 @@ li.player1:hover {
 
 li {
   background-image: url("./images/nebula.jpg");
-  border: 8.25px dashed;
+  border: 8.25px dotted;
   border-radius: 63px;
   width: 110px;
   height: 149px;
@@ -118,7 +121,7 @@ li:hover {
 
 button {
   background-color: green;
-  border: 15px;
+/*  border: 15px;*/
   border-radius: 15px;
   color: white;
   padding: 10px 27px;
@@ -130,4 +133,18 @@ button {
 
 button:hover {
   opacity: 0.7;
-  filter: alpha(opacity=70)}
+  filter: alpha(opacity=70);
+}
+
+#music {
+  background-color: red;
+}
+
+/*span {
+  margin: 0px -10px;
+}
+.blue{color: #FF6B6B;}
+.red{color: #FFE66D;}
+.black{color: #4ECDC4;}
+.green{color: #1A535C;}
+.pink{color: gray;}*/
