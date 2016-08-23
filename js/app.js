@@ -36,6 +36,9 @@ function randomHex(){
   return '#'+Math.floor(Math.random()*16777215).toString(16);
 }
 
+var $computerpits;
+var $playerpit; 
+
 $(function(){
   var $lis          = $("li");
   var lisArray      = [].slice.call($lis);
@@ -44,9 +47,9 @@ $(function(){
   var $player1Store = $(".player1");
   var $player2Store = $(".player2");
   var $start        = $("#start");
-  var $computerpits = $(".computer");
-  var $playerpits   = $('.player');
   var counter       = 1;
+  $computerpits = $(".computer");
+  $playerpits   = $('.player');
 
   $player1Store.html();
   $player2Store.html();
@@ -173,7 +176,9 @@ $(function(){
   }
 
   function checkForWin() {
-    console.log("win");
+    console.log();
+    // if($computerpits <= 0 || $playerpits <= 0)
+
     // loop over pits
     // check if ea
     // if either computer pits or player pits is empty

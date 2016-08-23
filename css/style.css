@@ -91,7 +91,7 @@ li.player1:hover {
 
 li {
   background-image: url("./images/nebula.jpg");
-  border: 8.25px dotted;
+  border: 7.25px dotted;
   border-radius: 63px;
   width: 110px;
   height: 149px;
@@ -111,11 +111,11 @@ li:hover {
 }
 
 .pebble {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   border-radius: 100%;
   background: blue;
-  border: 1px solid darkblue;
+  border: 3px double white;
   position: absolute;
 }
 
