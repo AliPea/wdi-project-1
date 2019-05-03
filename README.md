@@ -1,2 +1,2 @@
-# wdi-project-1
-This is the first project for WDI London
+Macala game project on JS
+
